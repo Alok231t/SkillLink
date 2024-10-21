@@ -559,54 +559,54 @@ function Dashboard() {
         }
     };
 
-    const handleCourseCreation = (e) => {
+    const handleCourseCreation = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+    
         const userId = localStorage.getItem('userId');
         const courseData = {
             title: courseTitle,
             description: courseDescription,
             userId: userId,
-            roadMap : null,
+            roadMap: null,
             progress: [],
             userQuizScores: [],
         };
-
-        fetch(`${baseurl}/api/Course`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            },
-            body: JSON.stringify(courseData),
-        })
-            .then(response => {
-                setIsLoading(false);
-                if (response.ok) {
-                    alert('Course created successfully!');
-                    setCourseTitle('');
-                    setCourseDescription('');
-                    setIsCreatingCourse(false);
-                    setErrorMessage('');
-                    fetchUserCourses();
-                    fetchCourses();
-                    console.log(courses);
-                    console.log(availableCourses);
-                } else {
-                    return response.json().then((data) => {
-                        throw new Error(data.message || 'Error creating course');
-                    });
-                }
-            })
-            .catch(error => {
-                setIsLoading(false);
-                console.error('Error:', error);
-                setErrorMessage(error.message);
-                alert('Failed to create course: ' + error.message);
+    
+        try {
+            const response = await fetch(`${baseurl}/api/Course`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                },
+                body: JSON.stringify(courseData),
             });
-            
+    
+            setIsLoading(false);
+    
+            if (response.ok) {
+                alert('Course created successfully!');
+                setCourseTitle('');
+                setCourseDescription('');
+                setIsCreatingCourse(false);
+                setErrorMessage('');
+                await fetchUserCourses();  // assuming fetchUserCourses is an async function
+                await fetchCourses();      // assuming fetchCourses is an async function
+                console.log(courses);
+                console.log(availableCourses);
+            } else {
+                const data = await response.json();
+                throw new Error(data.message || 'Error creating course');
+            }
+        } catch (error) {
+            setIsLoading(false);
+            console.error('Error:', error);
+            setErrorMessage(error.message);
+            alert('Failed to create course: ' + error.message);
+        }
     };
+    
 
     const saveScore = async (score, courseId) => {
         const payload = {
@@ -655,34 +655,35 @@ function Dashboard() {
     };
     
 
-    const fetchUserCourses = () => {
+    const fetchUserCourses = async () => {
         setIsFetchingCourses(true);
         const userId = localStorage.getItem('userId');
-
-        fetch(`${baseurl}/Course/user/${userId}`, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            },
-        })
-            .then(response => {
-                setIsFetchingCourses(false);
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Failed to fetch courses');
-                }
-            })
-            .then(data => {
-                setCourses(data);
-                // setAvailableCourses(data)
-            })
-            .catch(error => {
-                setIsFetchingCourses(false);
-                console.error('Error:', error);
-                setErrorMessage(error.message);
-                alert('Failed to fetch courses: ' + error.message);
+    
+        try {
+            const response = await fetch(`${baseurl}/Course/user/${userId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                },
             });
+    
+            setIsFetchingCourses(false);
+    
+            if (response.ok) {
+                const data = await response.json();
+                setCourses(data);
+                // setAvailableCourses(data) // Uncomment if needed later
+            } else {
+                throw new Error('Failed to fetch courses');
+            }
+        } catch (error) {
+            setIsFetchingCourses(false);
+            console.error('Error:', error);
+            setErrorMessage(error.message);
+            alert('Failed to fetch courses: ' + error.message);
+        }
     };
+    
+
     useEffect(() => {
         fetchCourses();
     }, []);
