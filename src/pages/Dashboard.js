@@ -574,7 +574,7 @@ function Dashboard() {
         };
     
         try {
-            const response = await fetch(`${baseurl}/api/Course`, {
+            const response = await fetch(`${baseurl}/Course`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
