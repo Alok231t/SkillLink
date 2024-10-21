@@ -1,0 +1,284 @@
+.dashboard-container {
+    display: flex; /* Flexbox for layout */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px; /* Width of the sidebar */
+    background-color: #343a40; /* Dark background for sidebar */
+    color: white; /* White text */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: green; /* Green color for header */
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+/* Sidebar Item */
+.sidebar-item {
+    padding: 10px 15px;
+    margin: 5px 0; /* Spacing between items */
+    background-color: #495057; /* Darker item background */
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.sidebar-item:hover {
+    background-color: #6c757d; /* Change color on hover */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+/* Main Content */
+.content {
+    flex: 1; /* Take remaining space */
+    background-color: #f8f9fa; /* Light background for content area */
+    padding: 20px;
+    overflow-y: auto; /* Scroll if content overflows */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Inner shadow */
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    font-size: 2.5rem;
+    color: #333; /* Dark text color */
+    margin-bottom: 10px;
+    text-align: center; /* Centered header */
+}
+
+/* Dashboard Intro */
+.dashboard-intro {
+    font-size: 1.2rem;
+    color: #555; /* Medium text color */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Chart Container */
+.chart-container {
+    width: 100%;
+    max-width: 700px; /* Max width for the chart */
+    margin: 20px auto; /* Center the chart */
+}
+
+/* Additional Info */
+.additional-info {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.additional-info h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.additional-info p {
+    color: #666; /* Lighter text color */
+}
+
+/* Course Creation Form */
+.course-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 500px; /* Set max width for the form */
+}
+
+.course-form label {
+    font-size: 1rem;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.course-form input,
+.course-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s; /* Transition for focus */
+}
+
+.course-form input:focus,
+.course-form textarea:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none; /* Remove outline */
+}
+
+/* Submit Button */
+.course-form button {
+    background-color: #007bff; /* Blue submit button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+}
+
+.course-form button:disabled {
+    background-color: #6c757d; /* Greyed out button when disabled */
+    cursor: not-allowed;
+}
+
+.course-form button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Loading State */
+button[disabled] {
+    background-color: #6c757d; /* Greyed out button for loading state */
+    cursor: not-allowed;
+}
+
+/* Course Creation Toggle Button */
+button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+button:disabled {
+    background-color: #6c757d; /* Greyed out button */
+    cursor: not-allowed;
+}
+
+/* View Courses Section */
+.view-courses {
+    padding: 20px; /* Add padding around the section */
+    background-color: #f8f9fa; /* Light background color */
+}
+
+/* Course Cards */
+.courses-container {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Space out items */
+}
+
+.course-card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Inner padding for card content */
+    margin: 10px; /* Margin between cards */
+    flex: 0 1 calc(33.333% - 20px); /* Three cards per row with space */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+    position: relative; /* Position for absolute elements inside */
+}
+
+/* Hover Effect on Course Card */
+.course-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Course Title */
+.course-card h3 {
+    font-size: 1.5rem; /* Font size for course title */
+    color: #333; /* Dark color for title */
+    margin-bottom: 10px; /* Space below title */
+}
+
+/* Course Description */
+.course-card p {
+    font-size: 1rem; /* Font size for description */
+    color: #666; /* Lighter text color */
+    margin-bottom: 15px; /* Space below description */
+}
+
+/* Enroll Button */
+.enroll-button {
+    background-color: #007bff; /* Blue button color */
+    color: white; /* White text */
+    padding: 10px 15px; /* Button padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+    position: absolute; /* Position button at bottom of card */
+    bottom: 20px; /* Distance from bottom */
+    left: 50%; /* Center button */
+    transform: translateX(-50%); /* Center alignment */
+}
+
+/* Enroll Button Hover */
+.enroll-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .course-card {
+        flex: 0 1 calc(50% - 20px); /* Two cards per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .course-card {
+        flex: 0 1 100%; /* One card per row on extra small screens */
+    }
+
+    .sidebar {
+        width: 200px; /* Adjust sidebar width for small screens */
+    }
+
+    .content {
+        padding: 15px; /* Reduce padding on small screens */
+    }
+
+    .logout-button {
+        background-color: #f44336; /* Red color */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        margin-top: 20px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    
+}
