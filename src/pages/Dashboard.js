@@ -635,24 +635,47 @@ function Dashboard() {
         }
     };
     
-    const getScores = (CourseId) => {
-        console.log(CourseId);  // Ensure CourseId is logged correctly
-        setQuizScores([]);
-        fetch(`${baseurl}/UserQuizScore/${CourseId}`, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
+    // const getScores = (CourseId) => {
+    //     console.log(CourseId);  // Ensure CourseId is logged correctly
+    //     setQuizScores([]);
+    //     fetch(`${baseurl}/UserQuizScore/${CourseId}`, {
+    //         headers: {
+    //             'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    //         },
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);  // Log the data after it's received
+    //         setQuizScores(data);  // Set the quiz scores
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //         setErrorMessage('Failed to fetch quiz scores');  // Update error message
+    //     });
+    // };
+    const getScores = async (CourseId) => {
+        try {
+            console.log(CourseId);  // Ensure CourseId is logged correctly
+            setQuizScores([]);  // Clear previous scores
+            const response = await fetch(`${baseurl}/UserQuizScore/${CourseId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to fetch quiz scores');  // Handle non-200 responses
+            }
+    
+            const data = await response.json();
             console.log(data);  // Log the data after it's received
             setQuizScores(data);  // Set the quiz scores
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error:', error);
             setErrorMessage('Failed to fetch quiz scores');  // Update error message
-        });
+        }
     };
+    
     
 
     const fetchUserCourses = async () => {
@@ -679,13 +702,16 @@ function Dashboard() {
             setIsFetchingCourses(false);
             console.error('Error:', error);
             setErrorMessage(error.message);
-            alert('Failed to fetch courses: ' + error.message);
+            // alert('Failed to fetch courses: ' + error.message);
         }
     };
     
 
     useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if(userId!=null){
         fetchCourses();
+        }
     }, []);
 
     useEffect(() => {

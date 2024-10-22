@@ -29,6 +29,11 @@ function Register() {
         setVerificationCode(e.target.value);
     };
 
+    const validatePassword = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+        return passwordRegex.test(password);
+    };
+
     const sendVerificationCode = async (email) => {
         try {
             if (!email) {
@@ -65,6 +70,17 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage({ text: '', type: '' });
+
+        // Password validation
+        if (!validatePassword(formData.password)) {
+            setMessage({ text: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.', type: 'error' });
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setMessage({ text: 'Passwords do not match.', type: 'error' });
+            return;
+        }
 
         if (isCodeSent) {
             if (verificationCode === code) {
